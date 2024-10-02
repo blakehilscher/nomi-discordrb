@@ -8,8 +8,6 @@ This project is a simple Discord bot built with the `discordrb` library in Ruby.
 
 ## Features
 - Responds to user messages.
-- Sends a message when the bot is ready.
-- Ignores messages from other bots.
   
 ## Requirements
 - Ruby 

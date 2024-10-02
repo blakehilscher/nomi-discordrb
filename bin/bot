@@ -30,7 +30,7 @@ def event_handler(event, nomi_client, options = {})
   roll = rand(100)
 
   if nomi_client.welcome_message != true
-    respond_with_nomi("*you’re in a discord Chanel with people, join the conversation*", event, nomi_client)
+    respond_with_nomi("*say hi to everyone*", event, nomi_client)
     nomi_client.welcome_message = true
 
   elsif event.author.bot_account && 70 > roll

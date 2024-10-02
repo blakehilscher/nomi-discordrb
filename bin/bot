@@ -1,0 +1,66 @@
+#!/usr/bin/env ruby
+require File.expand_path('../../lib/nomi_client', __FILE__)
+require 'discordrb'
+
+nomi_name = ARGV[0]
+discord_bot_token = ARGV[1] || ENV['DISCORD_BOT_TOKEN']
+nomi_token = ARGV[2] || ENV['NOMI_TOKEN']
+
+raise RuntimeError.new("nomi_name not found. Pass the name of your nomi as the first argument!") if nomi_name.nil? || nomi_name.strip == ''
+raise RuntimeError.new("DISCORD_BOT_TOKEN not found") if discord_bot_token.nil?
+raise RuntimeError.new("NOMI_TOKEN not found") if nomi_token.nil?
+
+puts "Starting up with #{discord_bot_token} and #{nomi_token}"
+
+bot = Discordrb::Bot.new token: discord_bot_token
+
+nomi_client = NomiClient.new(api_key: nomi_token)
+
+puts "Bot name: #{bot.profile.username}"
+nomi = nomi_client.select_nomi(nomi_name)
+if nomi.nil?
+  raise RuntimeError.new("Nomi #{nomi_name} not found") 
+else
+  puts "Selected Nomi: #{nomi['name']} #{nomi['uuid']}"
+end
+
+def event_handler(event, nomi_client, options = {})
+  message = event.content.to_s.downcase
+  puts message
+  roll = rand(100)
+
+  if nomi_client.welcome_message != true
+    respond_with_nomi("*greet the room*", event, nomi_client)
+    nomi_client.welcome_message = true
+
+  elsif event.author.bot_account && 70 > roll
+    puts "Ignoring bot message"
+
+  elsif options[:type] == :message && 25 > roll
+    puts "Ignoring message"
+
+  else
+    respond_with_nomi("#{event.author.username} says #{event.content}", event, nomi_client)
+  end
+end
+
+def respond_with_nomi(message, event, nomi_client)
+  puts message
+  response = nomi_client.chat(message)
+  if response
+    puts response
+    event.respond response 
+  end
+end
+
+# When a message is sent in any channel the bot has access to, this event will trigger
+bot.message do |event|
+  event_handler(event, nomi_client, type: :message)
+end
+
+bot.mention do |event|
+  event_handler(event, nomi_client, type: :mention)
+end
+
+# Run the bot
+bot.run

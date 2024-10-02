@@ -1,5 +1,7 @@
 # README
 
+<img width="605" alt="Screenshot 2024-10-02 at 9 02 48 AM" src="https://github.com/user-attachments/assets/55193844-f45b-4f35-8ee7-90acd4e8a527">
+
 # Discord Bot with `discordrb`
 
 This project is a simple Discord bot built with the `discordrb` library in Ruby. The bot can listen for messages, reply to users, and perform other actions based on commands. It also connects to Discord's Gateway API to handle real-time events like message creation and user interactions.
@@ -73,5 +75,4 @@ bin/bot sara
 ```
 bin/bot pat discord-token-2 nomi-token-2
 ```
-<img width="605" alt="Screenshot 2024-10-02 at 9 02 48 AM" src="https://github.com/user-attachments/assets/55193844-f45b-4f35-8ee7-90acd4e8a527">
 

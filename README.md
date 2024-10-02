@@ -27,17 +27,19 @@ Using Homebrew:
 
 ```bash
 brew install ruby
+brew install git
 ```
 
 #### Linux
 ```bash
-sudo apt update
-sudo apt install ruby-full
+sudo apt-get update
+sudo apt-get install ruby-full git -y
 ```
 
 #### Windows
 
-You can install Ruby on Windows using the RubyInstaller https://rubyinstaller.org/. Download the installer and follow the setup instructions.
+You can install Ruby on Windows using the RubyInstaller https://rubyinstaller.org/. 
+Download the installer and follow the setup instructions.
 
 
 ## Usage

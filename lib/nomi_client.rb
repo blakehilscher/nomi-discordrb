@@ -20,7 +20,8 @@ class NomiClient
   end
 
   def select_nomi(message)
-    nomi = nomis.find { |n| n['name'] =~ /#{message.to_s.gsub(' ', '|')}/i }
+    nomi = nomis.find { |n| n['name'].to_s.strip.downcase == message.to_s.strip.downcase }
+    nomi = nomis.find { |n| n['name'] =~ /#{message.to_s.gsub(' ', '|')}/i } if nomi.nil?
     self.nomi_id = nomi['uuid'] if nomi
     nomi
   end

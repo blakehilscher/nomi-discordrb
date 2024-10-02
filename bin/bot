@@ -25,18 +25,37 @@ else
 end
 
 def event_handler(event, nomi_client, options = {})
+  bot = options[:bot]
+  message_type = options[:message_type]
+
   message = event.content.to_s.downcase
   puts message
   roll = rand(100)
 
-  if nomi_client.welcome_message != true
-    respond_with_nomi("*say hi to everyone*", event, nomi_client)
-    nomi_client.welcome_message = true
+  nomi_client.other_bots[event.author.id] = true if event.author.bot_account
 
-  elsif event.author.bot_account && 70 > roll
+  response_chance = 100
+  response_chance -= nomi_client.bot_count * 25
+  response_chance = 15 if response_chance < 15
+
+  should_answer_bot = rand(100) < 15
+  should_answer = roll < response_chance
+
+  mentioned_someone = event.message.mentions != []
+  mentioned_me = event.message.mentions.include?(bot.profile)
+  # always answer mentions
+  should_answer = true if mentioned_me
+
+  puts "should_answer: #{should_answer} Roll: #{roll} Response Chance: #{response_chance} mentioned_me: #{mentioned_me} mentioned_someone: #{mentioned_someone}"
+
+  # never answer other people's mentions
+  if mentioned_someone && !mentioned_me
+    puts "Ignoring mention that doesn't include me"
+
+  elsif event.author.bot_account && !should_answer_bot
     puts "Ignoring bot message"
 
-  elsif options[:type] == :message && 10 > roll
+  elsif message_type == :message && !should_answer
     puts "Ignoring message"
 
   else
@@ -49,17 +68,17 @@ def respond_with_nomi(message, event, nomi_client)
   response = nomi_client.chat(message)
   if response
     puts response
-    event.respond response
+    event.respond "*#{nomi_client.nomi['name']}* #{response}"
   end
 end
 
 # When a message is sent in any channel the bot has access to, this event will trigger
 bot.message do |event|
-  event_handler(event, nomi_client, type: :message)
+  event_handler(event, nomi_client, message_type: :message, bot: bot)
 end
 
 bot.mention do |event|
-  event_handler(event, nomi_client, type: :mention)
+  event_handler(event, nomi_client, message_type: :mention, bot: bot)
 end
 
 # Run the bot

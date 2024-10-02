@@ -1,13 +1,18 @@
 class NomiClient
-  attr_accessor :nomi_id, :welcome_message
+  attr_accessor :nomi_id, :other_bots
 
   def initialize(api_key:)
     @api_key = api_key
     @sending_message = false
+    @other_bots = {}
+  end
+
+  def bot_count
+    other_bots.count
   end
 
   def nomi
-    nomis.find { |n| n[:uuid] == nomi_id }
+    nomis.find { |n| n['uuid'] == nomi_id }
   end
 
   def nomis
@@ -21,8 +26,7 @@ class NomiClient
   end
 
   def chat(message)
-    return {} if @sending_message
-    output = {}
+    return nil if @sending_message
     begin
       @sending_message = true
       url = "https://api.nomi.ai/v1/nomis/#{nomi_id}/chat"

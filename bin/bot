@@ -36,7 +36,7 @@ def event_handler(event, nomi_client, options = {})
   elsif event.author.bot_account && 70 > roll
     puts "Ignoring bot message"
 
-  elsif options[:type] == :message && 25 > roll
+  elsif options[:type] == :message && 10 > roll
     puts "Ignoring message"
 
   else

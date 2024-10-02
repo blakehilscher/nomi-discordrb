@@ -68,7 +68,7 @@ def respond_with_nomi(message, event, nomi_client)
   response = nomi_client.chat(message)
   if response
     puts response
-    event.respond "*#{nomi_client.nomi['name']}* #{response}"
+    event.respond response
   end
 end
 

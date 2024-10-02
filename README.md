@@ -10,9 +10,10 @@ This project is a simple Discord bot built with the `discordrb` library in Ruby.
 - Ignores messages from other bots.
   
 ## Requirements
-- Ruby (>= 2.6)
+- Ruby 
 - Bundler
 - A Discord bot token from the [Discord Developer Portal](https://discord.com/developers/applications).
+- A Nomi API token from the [Nomi API](https://api.nomi.ai/docs/).
 
 ## Getting Started
 
@@ -66,8 +67,7 @@ bundle install
 bin/bot sara
 ```
 
-# Optionally start the bot with command line arguments:
-
+#### Command Line Usage without ENV variables:
 ```
 bin/bot pat discord-token-2 nomi-token-2
 ```

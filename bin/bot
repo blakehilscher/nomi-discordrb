@@ -19,7 +19,7 @@ nomi_client = NomiClient.new(api_key: nomi_token)
 puts "Bot name: #{bot.profile.username}"
 nomi = nomi_client.select_nomi(nomi_name)
 if nomi.nil?
-  raise RuntimeError.new("Nomi #{nomi_name} not found") 
+  raise RuntimeError.new("Nomi #{nomi_name} not found")
 else
   puts "Selected Nomi: #{nomi['name']} #{nomi['uuid']}"
 end
@@ -30,7 +30,7 @@ def event_handler(event, nomi_client, options = {})
   roll = rand(100)
 
   if nomi_client.welcome_message != true
-    respond_with_nomi("*greet the room*", event, nomi_client)
+    respond_with_nomi("*you’re in a discord Chanel with people, join the conversation*", event, nomi_client)
     nomi_client.welcome_message = true
 
   elsif event.author.bot_account && 70 > roll
@@ -49,7 +49,7 @@ def respond_with_nomi(message, event, nomi_client)
   response = nomi_client.chat(message)
   if response
     puts response
-    event.respond response 
+    event.respond response
   end
 end
 

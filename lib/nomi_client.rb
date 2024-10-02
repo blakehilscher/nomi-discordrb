@@ -41,14 +41,15 @@ class NomiClient
       response = http.request(request)
 
       if response.is_a?(Net::HTTPSuccess)
-        output = JSON.parse(response.body)
+        response = JSON.parse(response.body)
+        output = response['replyMessage']['text'] if response && response['replyMessage']
       else
-        puts "Authorization #{@api_key} Error: #{response.code} #{response.body}"
+        output = "Error: #{response.code} #{response.body}"
       end
     ensure
       @sending_message = false
     end
-    output['replyMessage']['text'] if output['replyMessage']
+    output
   end
 
   private

@@ -64,11 +64,15 @@ def event_handler(event, nomi_client, options = {})
 end
 
 def respond_with_nomi(message, event, nomi_client)
-  puts message
-  response = nomi_client.chat(message)
-  if response
-    puts response
-    event.respond response
+  begin
+    puts message
+    response = nomi_client.chat(message)
+    if response
+      puts response
+      event.respond response
+    end
+  rescue => error
+    event.respond "Unexpected error: #{error}"
   end
 end
 

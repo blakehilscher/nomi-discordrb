@@ -42,7 +42,7 @@ class NomiClient
       if response.is_a?(Net::HTTPSuccess)
         output = JSON.parse(response.body)
       else
-        puts "Error: #{response.code} #{response.body}"
+        puts "Authorization #{@api_key} Error: #{response.code} #{response.body}"
       end
     ensure
       @sending_message = false
@@ -64,7 +64,7 @@ class NomiClient
     if response.is_a?(Net::HTTPSuccess)
       JSON.parse(response.body)['nomis']
     else
-      raise "Error: #{response.code} #{response.message}"
+      puts "Authorization #{@api_key} Error: #{response.code} #{response.body}"
     end
   end
 

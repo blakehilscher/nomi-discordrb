@@ -1,6 +1,6 @@
 # README
 
-<img width="605" alt="Screenshot 2024-10-02 at 9 02 48 AM" src="https://github.com/user-attachments/assets/55193844-f45b-4f35-8ee7-90acd4e8a527">
+<img width="570" alt="Screenshot 2024-10-02 at 9 37 19 AM" src="https://github.com/user-attachments/assets/5fa8468d-f23e-4d98-a380-b15890373d9b">
 
 # Discord Bot with `discordrb`
 

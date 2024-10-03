@@ -63,7 +63,7 @@ export NOMI_TOKEN=99999999-5555-4444-8888-111111111
 bundle install
 ```
 
-3. Start the bot and pass the name of the bot as an argument:
+3. Start the bot and pass the name of the nomi as an argument:
 
 ```
 bin/bot sara
@@ -71,6 +71,6 @@ bin/bot sara
 
 #### Command Line Usage without ENV variables:
 ```
-bin/bot pat discord-token-2 nomi-token-2
+bin/bot sara discord-token-2 nomi-token-2
 ```
 
